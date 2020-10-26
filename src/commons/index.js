@@ -1,1 +1,1 @@
-export { default as keycloakConfig } from "./keycloak-config";
+export { default as keycloack } from "./keycloak-config";

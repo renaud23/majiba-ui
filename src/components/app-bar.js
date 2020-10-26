@@ -8,7 +8,7 @@ import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 import { userState } from "../state";
-import { keycloakConfig } from "../commons";
+import { keycloack } from "../commons";
 
 const useStyles = makeStyles((theme) => {
   return {
@@ -21,28 +21,24 @@ const useStyles = makeStyles((theme) => {
   };
 });
 
-function getLogin(token) {
-  return token ? "" : "";
-}
-
 export default function ButtonAppBar() {
   const classes = useStyles();
-  const [token] = useRecoilState(userState);
+  const [user] = useRecoilState(userState);
+  const { authenticated } = user;
 
   const onLoginCallback = useCallback(
     function () {
-      if (!token) {
-        // keycloakConfig.login({ redirectUri: `${window.location.origin}` });
-        keycloakConfig.init({ flow: "implicit" }).success(function (auth) {
-          if (!auth) {
-            keycloakConfig.login({
-              redirectUri: `https://google.com`,
-            });
-          }
+      if (!authenticated) {
+        keycloack.login({
+          redirectUri: `${window.location.origin}/accueil`,
+        });
+      } else {
+        keycloack.logout({
+          redirectUri: `${window.location.origin}/accueil`,
         });
       }
     },
-    [token]
+    [authenticated]
   );
 
   return (
@@ -60,7 +56,7 @@ export default function ButtonAppBar() {
           Majiba api
         </Typography>
         <Button onClick={onLoginCallback} color="inherit">
-          Login
+          {authenticated ? "logout" : "login"}
         </Button>
       </Toolbar>
     </AppBar>

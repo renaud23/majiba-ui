@@ -1,4 +1,5 @@
 import keyCloak from "keycloak-js";
 
-const config = keyCloak(`${window.location.origin}/keycloak.json`);
-export default config;
+const keycloack = keyCloak(`${window.location.origin}/keycloak-qf.json`);
+
+export default keycloack;
