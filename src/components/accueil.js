@@ -2,6 +2,7 @@ import React from "react";
 import { useRecoilState } from "recoil";
 import Typography from "@material-ui/core/Typography";
 import { userState } from "../state";
+import Formulaire from "./formulaire";
 
 function Accueil() {
   const [{ authenticated }] = useRecoilState(userState);
@@ -10,7 +11,7 @@ function Accueil() {
       component="div"
       style={{ backgroundColor: "#cfe8fc", height: "100vh" }}
     >
-      {authenticated ? "Bienvenue!" : "Vous n'êtes pas authentifié."}
+      {authenticated ? <Formulaire /> : "Vous n'êtes pas authentifié."}
     </Typography>
   );
 }

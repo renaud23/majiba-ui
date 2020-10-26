@@ -1,16 +1,22 @@
 import { createMuiTheme } from "@material-ui/core/styles";
-import purple from "@material-ui/core/colors/purple";
-import green from "@material-ui/core/colors/green";
+import { makeStyles } from "@material-ui/core/styles";
+import teal from "@material-ui/core/colors/teal";
+import amber from "@material-ui/core/colors/amber";
 
 const theme = createMuiTheme({
   palette: {
     primary: {
-      main: purple[500],
+      main: teal[500],
     },
     secondary: {
-      main: green[500],
+      main: amber[500],
     },
   },
 });
+
+export const useStyles = makeStyles((theme) => ({
+  formulaire: { padding: "10px 24px", margin: "10px 30px" },
+  button: { padding: "6px" },
+}));
 
 export default theme;

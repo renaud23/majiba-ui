@@ -6,7 +6,7 @@ import {
   Redirect,
 } from "react-router-dom";
 import { useRecoilState } from "recoil";
-import { userState } from "../state";
+import { userState, axiosState } from "../state";
 import { ThemeProvider } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Container from "@material-ui/core/Container";
@@ -14,12 +14,32 @@ import Container from "@material-ui/core/Container";
 import Accueil from "./accueil";
 import theme from "./theme";
 import AppBar from "./app-bar";
-import { keycloack } from "../commons";
+import { keycloack, createAxiosWithAuth } from "../commons";
 
 // const useStyles = makeStyles((theme) => ({}));
 
+function getMajibaUri() {
+  return process.env.NODE_ENV === "production"
+    ? process.env.REACT_APP_MAJIBA_PROD
+    : process.env.REACT_APP_MAJIBA_QF;
+}
+
 function Application() {
   const [user, setUserState] = useRecoilState(userState);
+  const [axios, setAxios] = useRecoilState(axiosState);
+  const { majiba } = axios;
+
+  useEffect(
+    function () {
+      if (!majiba) {
+        const mjb = createAxiosWithAuth(getMajibaUri(), function (token) {
+          setUserState({ ...user, token });
+        });
+        setAxios({ ...axios, majiba: mjb });
+      }
+    },
+    [majiba, axios, user, setAxios, setUserState]
+  );
 
   useEffect(
     function () {
@@ -29,7 +49,8 @@ function Application() {
           if (is) {
             setUserState({
               ...user,
-              token: keycloack.kc,
+              token: keycloack.token,
+              givenName: keycloack.tokenParsed.given_name,
               authenticated: true,
             });
           }
