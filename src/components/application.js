@@ -10,18 +10,15 @@ import { userState, axiosState } from "../state";
 import { ThemeProvider } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Container from "@material-ui/core/Container";
-// import { makeStyles } from "@material-ui/core/styles";
 import Accueil from "./accueil";
 import theme from "./theme";
 import AppBar from "./app-bar";
 import { keycloack, createAxiosWithAuth } from "../commons";
 
-// const useStyles = makeStyles((theme) => ({}));
-
 function getMajibaUri() {
   return process.env.NODE_ENV === "production"
     ? process.env.REACT_APP_MAJIBA_PROD
-    : process.env.REACT_APP_MAJIBA_QF;
+    : process.env.REACT_APP_MAJIBA_DV;
 }
 
 function Application() {
@@ -35,6 +32,8 @@ function Application() {
         const mjb = createAxiosWithAuth(getMajibaUri(), function (token) {
           setUserState({ ...user, token });
         });
+
+        // const mjb = axiosMock();
         setAxios({ ...axios, majiba: mjb });
       }
     },
