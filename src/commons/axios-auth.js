@@ -1,24 +1,44 @@
 import axios from "axios";
-import keycloak from "./keycloak-config";
 
-function authorizedHeader(token) {
+// export const refreshToken = (minValidity = 60) =>
+//   new Promise((resolve, reject) => {
+//     keycloak
+//       .updateToken(minValidity)
+//       .success(() => {
+//         resolve(keycloak.token);
+//       })
+//       .error((error) => {
+//         reject(error);
+//       });
+//   });
+
+const authorizeConfig = (token) => (config) => {
   return {
+    ...config,
     headers: { Authorization: `Bearer ${token}` },
     "Content-Type": "application/json;charset=utf-8",
     Accept: "application/json;charset=utf-8",
   };
-}
+};
 
-function create(baseURL, onRefresh) {
-  const instance = axios.create({ baseURL });
+function create(token) {
+  const instance = axios.create();
   instance.interceptors.request.use(function (config) {
-    return {
-      ...config,
-      ...authorizedHeader(keycloak.token),
-    };
+    return authorizeConfig(token)(config);
   });
 
   return instance;
 }
 
 export default create;
+
+/*
+refreshToken()
+      .then(() => {
+        Promise.resolve(authorizeConfig(keycloak)(config));
+      })
+      .catch((e) => {
+        console.log(e);
+        // keycloak.login();
+      })
+*/

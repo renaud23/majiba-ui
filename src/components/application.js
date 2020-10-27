@@ -6,39 +6,17 @@ import {
   Redirect,
 } from "react-router-dom";
 import { useRecoilState } from "recoil";
-import { userState, axiosState } from "../state";
+import { userState } from "../state";
 import { ThemeProvider } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Container from "@material-ui/core/Container";
 import Accueil from "./accueil";
 import theme from "./theme";
 import AppBar from "./app-bar";
-import { keycloack, createAxiosWithAuth } from "../commons";
-
-function getMajibaUri() {
-  return process.env.NODE_ENV === "production"
-    ? process.env.REACT_APP_MAJIBA_PROD
-    : process.env.REACT_APP_MAJIBA_DV;
-}
+import { keycloack } from "../commons";
 
 function Application() {
   const [user, setUserState] = useRecoilState(userState);
-  const [axios, setAxios] = useRecoilState(axiosState);
-  const { majiba } = axios;
-
-  useEffect(
-    function () {
-      if (!majiba) {
-        const mjb = createAxiosWithAuth(getMajibaUri(), function (token) {
-          setUserState({ ...user, token });
-        });
-
-        // const mjb = axiosMock();
-        setAxios({ ...axios, majiba: mjb });
-      }
-    },
-    [majiba, axios, user, setAxios, setUserState]
-  );
 
   useEffect(
     function () {

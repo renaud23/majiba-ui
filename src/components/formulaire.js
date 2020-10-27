@@ -1,16 +1,24 @@
 import React, { useState, useCallback } from "react";
-import { useRecoilState, useRecoilValue } from "recoil";
-import { userState, axiosState } from "../state";
+import { useRecoilState } from "recoil";
 import Alert from "@material-ui/lab/Alert";
 import Typography from "@material-ui/core/Typography";
 import Paper from "@material-ui/core/Paper";
 import TextField from "@material-ui/core/TextField";
-import Waiting from "./waiting";
+import InputAdornment from "@material-ui/core/InputAdornment";
+import FormControl from "@material-ui/core/FormControl";
+import InputLabel from "@material-ui/core/InputLabel";
+import OutlinedInput from "@material-ui/core/OutlinedInput";
+import Assignment from "@material-ui/icons/Assignment";
 import Button from "@material-ui/core/Button";
+import Waiting from "./waiting";
 import "./formulaire.scss";
+import { writeText } from "clipboard-polyfill/text";
+import { userState } from "../state";
+import IconButton from "@material-ui/core/IconButton";
+import { axiosWithAuth, getMajibaUri } from "../commons";
 
-function getMajibaUri(name) {
-  return `application/${name.replace(/\s+/g, "")}/token`;
+function createUri(name) {
+  return `${getMajibaUri()}/application/${name.replace(/\s+/g, "")}/token`;
 }
 
 function isEnabled(name) {
@@ -19,6 +27,12 @@ function isEnabled(name) {
 
 function Notifiaction({ status }) {
   switch (status) {
+    case 200:
+      return (
+        <Alert severity="success" className="notification">
+          Votre jeton est ...
+        </Alert>
+      );
     case 400:
       return (
         <Alert severity="error" className="notification">
@@ -37,12 +51,44 @@ function Notifiaction({ status }) {
   }
 }
 
+function Token({ value }) {
+  if (!value) {
+    return null;
+  }
+  return (
+    <FormControl variant="outlined" className="token">
+      <InputLabel htmlFor="outlined-adornment-amount">Token</InputLabel>
+      <OutlinedInput
+        id="token"
+        label="Token"
+        type="text"
+        disabled={true}
+        variant="outlined"
+        value={value}
+        endAdornment={
+          <InputAdornment position="end">
+            <IconButton
+              aria-label="copy"
+              title="copy"
+              onClick={function () {
+                writeText(value);
+              }}
+            >
+              <Assignment />
+            </IconButton>
+          </InputAdornment>
+        }
+      />
+    </FormControl>
+  );
+}
+
 function Formulaire() {
-  const [{ givenName }] = useRecoilState(userState);
+  const [{ givenName, token }] = useRecoilState(userState);
   const [name, setName] = useState("");
   const [wait, setWait] = useState(false);
   const [status, setStatus] = useState(undefined);
-  const { majiba } = useRecoilValue(axiosState);
+  const [majibaToken, setMajibaToken] = useState(undefined);
 
   const onChangeName = useCallback(function (e) {
     setName(e.target.value);
@@ -51,16 +97,17 @@ function Formulaire() {
   const onSubmit = useCallback(
     function (e) {
       e.stopPropagation();
-      const uri = getMajibaUri(name);
+      const uri = createUri(name);
       setWait(true);
-      majiba
+      setStatus(undefined);
+      setMajibaToken(undefined);
+      axiosWithAuth(token)
         .get(uri)
         .then(function (response) {
+          const { token } = response.data;
+          setMajibaToken(token);
           setWait(false);
-          return response.json();
-        })
-        .then(function ({ token }) {
-          console.log(token);
+          setStatus(200);
         })
         .catch(function (e) {
           const { response } = e;
@@ -71,7 +118,7 @@ function Formulaire() {
           }
         });
     },
-    [name, majiba]
+    [name, token]
   );
 
   return (
@@ -103,6 +150,7 @@ function Formulaire() {
             Soumettre
           </Button>
           <Notifiaction status={status} />
+          <Token value={majibaToken} />
         </form>
       </Paper>
     </>
