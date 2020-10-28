@@ -9,6 +9,7 @@ import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 import { userState } from "../state";
 import { keycloack } from "../commons";
+import MajibaIcon from "./majiba.icon";
 
 const useStyles = makeStyles((theme) => {
   return {
@@ -50,7 +51,7 @@ export default function ButtonAppBar() {
           color="inherit"
           aria-label="menu"
         >
-          <MenuIcon />
+          <MajibaIcon />
         </IconButton>
         <Typography variant="h6" className={classes.title}>
           Majiba api
