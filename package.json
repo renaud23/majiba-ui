@@ -1,5 +1,6 @@
 {
   "name": "majiba-ui",
+  "baseUrl": "majiba-ui",
   "version": "0.1.0",  
   "license": "MIT", 
   "homepage": "https://renaud23.github.io/majiba-ui/",

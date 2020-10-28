@@ -14,7 +14,7 @@ function Icon({ width = 48, height = 48 }) {
             cx="8.467"
             cy="288.533"
             r="8.467"
-            fill="#00f"
+            fill="#ffc400"
             fillOpacity="1"
             stroke="none"
             strokeDasharray="none"

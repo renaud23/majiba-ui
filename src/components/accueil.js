@@ -1,17 +1,14 @@
 import React from "react";
-import { useRecoilState } from "recoil";
 import Typography from "@material-ui/core/Typography";
-import { userState } from "../state";
-import Formulaire from "./formulaire";
+import Formulaire from "./refresh-token";
+import Welcome from "./welcome";
+import "./accueil.scss";
 
 function Accueil() {
-  const [{ authenticated }] = useRecoilState(userState);
   return (
-    <Typography
-      component="div"
-      style={{ backgroundColor: "#cfe8fc", height: "100vh" }}
-    >
-      {authenticated ? <Formulaire /> : "Vous n'êtes pas authentifié."}
+    <Typography component="div" className="accueil">
+      <Welcome />
+      <Formulaire />
     </Typography>
   );
 }

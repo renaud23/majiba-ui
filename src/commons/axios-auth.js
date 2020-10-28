@@ -1,17 +1,5 @@
 import axios from "axios";
 
-// export const refreshToken = (minValidity = 60) =>
-//   new Promise((resolve, reject) => {
-//     keycloak
-//       .updateToken(minValidity)
-//       .success(() => {
-//         resolve(keycloak.token);
-//       })
-//       .error((error) => {
-//         reject(error);
-//       });
-//   });
-
 const authorizeConfig = (token) => (config) => {
   return {
     ...config,
@@ -31,14 +19,3 @@ function create(token) {
 }
 
 export default create;
-
-/*
-refreshToken()
-      .then(() => {
-        Promise.resolve(authorizeConfig(keycloak)(config));
-      })
-      .catch((e) => {
-        console.log(e);
-        // keycloak.login();
-      })
-*/
