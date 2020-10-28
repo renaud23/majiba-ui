@@ -30,11 +30,11 @@ export default function ButtonAppBar() {
     function () {
       if (!authenticated) {
         keycloack.login({
-          redirectUri: `${window.location.origin}/`,
+          redirectUri: `${window.location.href}`,
         });
       } else {
         keycloack.logout({
-          redirectUri: `${window.location.origin}/`,
+          redirectUri: `${window.location.href}`,
         });
       }
     },
