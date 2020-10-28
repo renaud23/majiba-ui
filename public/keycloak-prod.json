@@ -1,0 +1,5 @@
+{
+    "realm": "agents-insee-interne",
+    "auth-server-url": "https://auth.insee.fr/auth",
+    "resource": "get-token"
+  }
