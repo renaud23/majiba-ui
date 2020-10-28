@@ -13,7 +13,7 @@ import Container from "@material-ui/core/Container";
 import Accueil from "./accueil";
 import theme from "./theme";
 import AppBar from "./app-bar";
-import { keycloack } from "../commons";
+import { keycloak } from "../commons";
 
 function Application() {
   const [user, setUserState] = useRecoilState(userState);
@@ -22,16 +22,21 @@ function Application() {
     function () {
       const { authenticated } = user;
       if (!authenticated) {
-        keycloack.init().success(function (is) {
-          if (is) {
-            setUserState({
-              ...user,
-              token: keycloack.token,
-              givenName: keycloack.tokenParsed.given_name,
-              authenticated: true,
-            });
-          }
-        });
+        keycloak
+          .init()
+          .success(function (is) {
+            if (is) {
+              setUserState({
+                ...user,
+                token: keycloak.token,
+                givenName: keycloak.tokenParsed.given_name,
+                authenticated: true,
+              });
+            }
+          })
+          .error(function (e) {
+            console.log(e);
+          });
       }
     },
     [setUserState, user]
@@ -43,8 +48,11 @@ function Application() {
         <AppBar />
         <Container role="main" component="main" fixed>
           <Switch>
-            <Route path="/accueil" component={Accueil} />
-            <Route path="/" component={() => <Redirect to="/accueil" />} />
+            <Route path="/majiba-ui/accueil" component={Accueil} />
+            <Route
+              path="/"
+              component={() => <Redirect to="/majiba-ui/accueil" />}
+            />
           </Switch>
         </Container>
       </Router>

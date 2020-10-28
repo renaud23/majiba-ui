@@ -7,7 +7,7 @@ import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
 import { userState } from "../state";
-import { keycloack } from "../commons";
+import { keycloak } from "../commons";
 import MajibaIcon from "./majiba.icon";
 
 const useStyles = makeStyles((theme) => {
@@ -29,12 +29,12 @@ export default function ButtonAppBar() {
   const onLoginCallback = useCallback(
     function () {
       if (!authenticated) {
-        keycloack.login({
-          redirectUri: `${window.location.href}`,
+        keycloak.login({
+          redirectUri: `${window.location.protocol}//${window.location.host}${process.env.PUBLIC_URL}/accueil`,
         });
       } else {
-        keycloack.logout({
-          redirectUri: `${window.location.href}`,
+        keycloak.logout({
+          redirectUri: `${window.location.origin}/`,
         });
       }
     },
