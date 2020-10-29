@@ -12,7 +12,7 @@ function Token({ value }) {
     return null;
   }
   return (
-    <FormControl variant="outlined" className="token">
+    <FormControl fullWidth variant="outlined" className="token">
       <InputLabel htmlFor="outlined-adornment-amount">Token</InputLabel>
       <OutlinedInput
         id="token"
