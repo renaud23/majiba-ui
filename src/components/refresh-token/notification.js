@@ -3,6 +3,12 @@ import Alert from "@material-ui/lab/Alert";
 
 function Notification({ status }) {
   switch (status) {
+    case 666:
+      return (
+        <Alert severity="success" className="notification">
+          Le Diable s'en est mêlé !
+        </Alert>
+      );
     case 200:
       return (
         <Alert severity="success" className="notification">
