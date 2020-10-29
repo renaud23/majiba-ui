@@ -1,0 +1,20 @@
+{
+  "files": {
+    "main.css": "/majiba-ui/static/css/main.c4a96d92.chunk.css",
+    "main.js": "/majiba-ui/static/js/main.6d69c281.chunk.js",
+    "main.js.map": "/majiba-ui/static/js/main.6d69c281.chunk.js.map",
+    "runtime-main.js": "/majiba-ui/static/js/runtime-main.68b278b2.js",
+    "runtime-main.js.map": "/majiba-ui/static/js/runtime-main.68b278b2.js.map",
+    "static/js/2.e79d3a03.chunk.js": "/majiba-ui/static/js/2.e79d3a03.chunk.js",
+    "static/js/2.e79d3a03.chunk.js.map": "/majiba-ui/static/js/2.e79d3a03.chunk.js.map",
+    "index.html": "/majiba-ui/index.html",
+    "static/css/main.c4a96d92.chunk.css.map": "/majiba-ui/static/css/main.c4a96d92.chunk.css.map",
+    "static/js/2.e79d3a03.chunk.js.LICENSE.txt": "/majiba-ui/static/js/2.e79d3a03.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.68b278b2.js",
+    "static/js/2.e79d3a03.chunk.js",
+    "static/css/main.c4a96d92.chunk.css",
+    "static/js/main.6d69c281.chunk.js"
+  ]
+}
