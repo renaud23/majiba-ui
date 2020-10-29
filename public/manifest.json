@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Majiba-ui",
+  "name": "Majiba api - renouvellement de jeton d'accès",
   "icons": [
     {
       "src": "favicon.ico",
