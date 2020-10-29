@@ -53,7 +53,7 @@ export default function ButtonAppBar() {
           <MajibaIcon />
         </IconButton>
         <Typography variant="h6" className={classes.title}>
-          Majiba api
+          Majiba api - renouvellement de jeton d'accès.
         </Typography>
         <Button onClick={onLoginCallback} color="inherit">
           {authenticated ? "logout" : "login"}
