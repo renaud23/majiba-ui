@@ -13,7 +13,10 @@ import Container from "@material-ui/core/Container";
 import Accueil from "./accueil";
 import theme from "./theme";
 import AppBar from "./app-bar";
+import RefreshToken from "./refresh-token";
+import MajibaApps from "./majiba-apps";
 import { keycloak } from "../commons";
+import "./application.scss";
 
 function Application() {
   const [user, setUserState] = useRecoilState(userState);
@@ -46,9 +49,19 @@ function Application() {
       <CssBaseline />
       <Router>
         <AppBar />
-        <Container role="main" component="main" fixed>
+        <Container role="main" component="main" fixed className="container">
           <Switch>
-            <Route path="/majiba-ui/accueil" component={Accueil} />
+            <Route exact path="/majiba-ui/accueil" component={Accueil} />
+            <Route
+              exact
+              path="/majiba-ui/renew-token"
+              component={RefreshToken}
+            />
+            <Route
+              exact
+              path="/majiba-ui/display-apps"
+              component={MajibaApps}
+            />
             <Route
               path="/"
               component={() => <Redirect to="/majiba-ui/accueil" />}

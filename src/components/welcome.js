@@ -8,7 +8,7 @@ function Welcome() {
   if (givenName) {
     return <Typography variant="h3">{`Bienvenue ${givenName}`}</Typography>;
   }
-  return null;
+  return <Typography variant="h3">{`Vous n'êtes pas authentifié.`}</Typography>;
 }
 
 export default Welcome;
