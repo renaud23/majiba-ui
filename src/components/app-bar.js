@@ -39,7 +39,7 @@ export default function ButtonAppBar() {
     function () {
       if (!authenticated) {
         keycloak.login({
-          redirectUri: `${window.location.protocol}//${window.location.host}${process.env.PUBLIC_URL}/accueil`,
+          redirectUri: `${window.location.origin}/${window.location.pathname}`,
         });
       } else {
         keycloak.logout({
