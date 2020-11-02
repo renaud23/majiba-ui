@@ -21,26 +21,34 @@ function getSuggestions(list, prefix) {
     });
 }
 
-function Item({ label, onClick }) {
+function Item({ label, onClick, focused }) {
   return (
     <MenuItem
       onClick={(e) => {
         e.stopPropagation();
         onClick(label);
       }}
+      selected={focused}
     >
       {label}
     </MenuItem>
   );
 }
 
-function SuggestionMenu({ items, onClick }) {
+function SuggestionMenu({ items, onClick, focused }) {
   if (items.length) {
     return (
       <Paper elevation={1} component="div" className="menu-items">
         <MenuList>
-          {items.map(function (label) {
-            return <Item key={label} label={label} onClick={onClick} />;
+          {items.map(function (label, i) {
+            return (
+              <Item
+                key={label}
+                label={label}
+                onClick={onClick}
+                focused={focused === i}
+              />
+            );
           })}
         </MenuList>
       </Paper>
@@ -51,7 +59,9 @@ function SuggestionMenu({ items, onClick }) {
 
 function Suggester({ list = [], onChange, className, onSubmit }) {
   const [suggestions, setSuggestions] = useState([]);
+  const [focused, setFocused] = useState(0);
   const [prefix, setPrefix] = useState("");
+
   const onChangeCallback = useCallback(
     function (e) {
       setPrefix(e.target.value);
@@ -79,6 +89,21 @@ function Suggester({ list = [], onChange, className, onSubmit }) {
     [prefix, list]
   );
 
+  const onKeyDown = useCallback(
+    function (e) {
+      if (e.key === "ArrowDown") {
+        setFocused(Math.min(focused + 1, suggestions.length - 1));
+      } else if (e.key === "ArrowUp") {
+        setFocused(Math.max(focused - 1, 0));
+      } else if (e.key === "Enter") {
+        if (suggestions.length) {
+          onSubmit(suggestions[focused]);
+        }
+      }
+    },
+    [focused, suggestions, onSubmit]
+  );
+
   return (
     <>
       <TextField
@@ -86,9 +111,13 @@ function Suggester({ list = [], onChange, className, onSubmit }) {
         variant="outlined"
         onChange={onChangeCallback}
         className={className}
-        onKeyDown={(e) => console.log(e.key)}
+        onKeyDown={onKeyDown}
       />
-      <SuggestionMenu items={suggestions} onClick={onClickCallback} />
+      <SuggestionMenu
+        items={suggestions}
+        onClick={onClickCallback}
+        focused={focused}
+      />
     </>
   );
 }
