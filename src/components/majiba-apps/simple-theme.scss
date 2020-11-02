@@ -1,4 +1,29 @@
 .simple-theme {
+
+
+  /* */
+  .react-scrollable-container {
+    .react-scrollbar {
+      .react-scrollbar-track {
+        background-color: gray;
+        &:hover {
+          background-color: goldenrod;
+        }
+      }
+      &.vertical {
+        height: calc(100% - 50px);
+        margin-top: 50px;
+      }
+    }
+  }
+
+
+  /* */
+ 
+
+
+
+  /* */
   table {
     font-family: "Trebuchet MS", Helvetica, sans-serif;
     background-color: snow;
@@ -18,41 +43,34 @@
             height: 100%;
             line-height: 50px;
           }
+
+          .react-large-table-track {
+           &.vertical{ background-color: lightseagreen;}
+          }
         }
       }
     }
 
     tbody {
       tr {
-        
         &.odd {
           background-color: lightcyan;
         }
-        th {
+        td {
         }
       }
     }
-
-
-    .react-scrollable-container {
-      .react-scrollbar {
-        &.vertical {
-          height: calc(100% - 42px);
-          margin-top: 50px;
-        }
-      }
-    }
-
-
   }
 
   /* */
   .simple-theme-cell {
+    display: block;
     border-bottom: solid 1px lightblue;
     height: calc(100% - 1px);
     padding: 0 5px;
     text-align: center;
     color: darkolivegreen;
+    line-height: 35px;
 
     &.align-right {
       text-align: right;
@@ -66,7 +84,13 @@
       text-align: center;
     }
   }
+}
 
-
-
+.table-apps-container {
+  display: block;
+  background-color: ghostwhite;
+  height: 300px;
+  width: 60%;
+  margin-left: auto;
+  margin-right: auto;
 }
