@@ -43,7 +43,6 @@ function buildAppList(rows = []) {
       const tmp = row.split(";");
       const name = tmp[0];
       if (name in apps) {
-        console.log(apps[name]);
         return {
           ...apps,
           [name]: {
