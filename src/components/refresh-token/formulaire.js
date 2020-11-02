@@ -6,6 +6,7 @@ import Button from "@material-ui/core/Button";
 import Waiting from "../waiting";
 import { userState, majibaState } from "../../state";
 import { axiosWithAuth, getMajibaUri } from "../../commons";
+import WarningIcon from "@material-ui/icons/Warning";
 import Notification from "./notification";
 import Confirm from "./confirm";
 import Suggester from "./suggester";
@@ -99,13 +100,14 @@ function Formulaire() {
       {majibaToken ? (
         <form className="majiba-demande-token" noValidate autoComplete="off">
           <Typography component="p" variant="body1" className="warning">
-            N'oubliez de copier votre jeton dans le presse papier, à l'aide du
-            bouton dans le champ texte avant de quitter cette page.
+            N'oubliez pas de copier votre jeton dans le presse papier, à l'aide
+            du bouton dans le champ texte avant de quitter cette page.
           </Typography>
           <Token value={majibaToken} />
         </form>
       ) : (
         <form className="majiba-demande-token" noValidate autoComplete="off">
+          <WarningIcon style={{ fontSize: 40, color: "red" }} />
           <Typography component="p" variant="body1" className="warning">
             En renouvelant le jeton de votre application auprès de l'API MAJIBA,
             vous révoquez automatiquement le précédant, s'il existe. Votre

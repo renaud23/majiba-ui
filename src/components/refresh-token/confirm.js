@@ -14,8 +14,8 @@ function Confirm({ name, open, onConfirm, onCancel }) {
       </DialogTitle>
       <DialogContent>
         <DialogContentText>
-          En renouvelant votre token, vous révoquerez immédiatement le
-          précédent. Voulez-vous continuer ?
+          En renouvelant le token de l'application, vous révoquerez
+          immédiatement le précédent. Voulez-vous continuer ?
         </DialogContentText>
       </DialogContent>
       <DialogActions>
