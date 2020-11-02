@@ -1,12 +1,12 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   BrowserRouter as Router,
   Switch,
   Route,
   Redirect,
 } from "react-router-dom";
-import { useRecoilState } from "recoil";
-import { userState } from "../state";
+import { useRecoilState, useSetRecoilState } from "recoil";
+import { userState, majibaState } from "../state";
 import { ThemeProvider } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Container from "@material-ui/core/Container";
@@ -14,12 +14,31 @@ import Accueil from "./accueil";
 import theme from "./theme";
 import AppBar from "./app-bar";
 import RefreshToken from "./refresh-token";
+import { getMajibaApps } from "../commons";
 import MajibaApps from "./majiba-apps";
 import { keycloak } from "../commons";
 import "./application.scss";
 
 function Application() {
   const [user, setUserState] = useRecoilState(userState);
+  const setApps = useSetRecoilState(majibaState);
+  const [init, setInit] = useState(false);
+
+  useEffect(
+    function () {
+      if (!init) {
+        setInit(true);
+        getMajibaApps()
+          .then(function (apps) {
+            setApps(apps);
+          })
+          .catch(function () {
+            // TODO error fallback
+          });
+      }
+    },
+    [init, setApps]
+  );
 
   useEffect(
     function () {
