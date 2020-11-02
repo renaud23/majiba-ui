@@ -6,10 +6,12 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 
-function Confirm({ open, onConfirm, onCancel }) {
+function Confirm({ name, open, onConfirm, onCancel }) {
   return (
     <Dialog open={open} onClose={onCancel} aria-labelledby="form-dialog-title">
-      <DialogTitle id="form-dialog-title">Renouveler votre token</DialogTitle>
+      <DialogTitle id="form-dialog-title">
+        Renouveler le token Majiba de l'application {name}
+      </DialogTitle>
       <DialogContent>
         <DialogContentText>
           En renouvelant votre token, vous révoquerez immédiatement le

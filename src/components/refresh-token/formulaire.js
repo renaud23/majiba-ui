@@ -130,6 +130,7 @@ function Formulaire() {
             Soumettre
           </Button>
           <Confirm
+            name={name}
             open={confirm}
             onConfirm={onSubmit}
             onSelect={onSubmit}
