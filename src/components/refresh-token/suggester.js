@@ -86,6 +86,7 @@ function Suggester({ list = [], onChange, className, onSubmit }) {
         variant="outlined"
         onChange={onChangeCallback}
         className={className}
+        onKeyDown={(e) => console.log(e.key)}
       />
       <SuggestionMenu items={suggestions} onClick={onClickCallback} />
     </>
