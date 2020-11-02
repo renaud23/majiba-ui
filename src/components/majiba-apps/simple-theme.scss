@@ -1,0 +1,72 @@
+.simple-theme {
+  table {
+    font-family: "Trebuchet MS", Helvetica, sans-serif;
+    background-color: snow;
+    border-radius: 15px;
+    width: fit-content;
+    height: fit-content;
+
+    thead {
+      background-color: dodgerblue;
+      border-radius: 15px 15px 0 0;
+      color: mintcream;
+
+      tr {
+        th {
+          .th-el-container {
+            font-weight: bold;
+            height: 100%;
+            line-height: 50px;
+          }
+        }
+      }
+    }
+
+    tbody {
+      tr {
+        
+        &.odd {
+          background-color: lightcyan;
+        }
+        th {
+        }
+      }
+    }
+
+
+    .react-scrollable-container {
+      .react-scrollbar {
+        &.vertical {
+          height: calc(100% - 42px);
+          margin-top: 50px;
+        }
+      }
+    }
+
+
+  }
+
+  /* */
+  .simple-theme-cell {
+    border-bottom: solid 1px lightblue;
+    height: calc(100% - 1px);
+    padding: 0 5px;
+    text-align: center;
+    color: darkolivegreen;
+
+    &.align-right {
+      text-align: right;
+    }
+
+    &.align-left {
+      text-align: left;
+    }
+
+    &.align-center {
+      text-align: center;
+    }
+  }
+
+
+
+}
