@@ -22,6 +22,7 @@
     "react-scripts": "4.0.0",
     "react-scrollable-div": "^0.1.8",
     "recoil": "^0.0.13",
+    "remove-accents": "^0.4.2",
     "web-vitals": "^0.2.4"
   },
   "scripts": {

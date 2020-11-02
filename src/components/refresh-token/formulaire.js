@@ -1,14 +1,14 @@
-import React, { useState, useCallback } from "react";
-import { useRecoilState } from "recoil";
+import React, { useState, useCallback, useEffect } from "react";
+import { useRecoilState, useRecoilValue } from "recoil";
 import Typography from "@material-ui/core/Typography";
 import Paper from "@material-ui/core/Paper";
-import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import Waiting from "../waiting";
-import { userState } from "../../state";
+import { userState, majibaState } from "../../state";
 import { axiosWithAuth, getMajibaUri } from "../../commons";
 import Notification from "./notification";
 import Confirm from "./confirm";
+import Suggester from "./suggester";
 import Token from "./token";
 import "./formulaire.scss";
 
@@ -35,9 +35,25 @@ function Formulaire() {
   const [wait, setWait] = useState(false);
   const [status, setStatus] = useState(undefined);
   const [majibaToken, setMajibaToken] = useState(undefined);
+  const [suggestions, setSuggestions] = useState(undefined);
+  const apps = useRecoilValue(majibaState);
 
-  const onChangeName = useCallback(function (e) {
-    setName(e.target.value);
+  const onChangeName = useCallback(function (name) {
+    setName(name);
+  }, []);
+
+  useEffect(
+    function () {
+      if (apps && apps.length) {
+        setSuggestions(apps.map(({ name }) => name));
+      }
+    },
+    [apps]
+  );
+
+  const onMenuSubmit = useCallback(function (n) {
+    setName(n);
+    setConfirm(true);
   }, []);
 
   const onSubmit = useCallback(
@@ -96,13 +112,14 @@ function Formulaire() {
             procédure de déploiement automatique ne fonctionnera alors
             correctement que lorsque vous lui aurez adjoint le nouveau jeton.
           </Typography>
-          <TextField
-            id="application-name"
-            label="Nom de l'application"
-            variant="outlined"
+
+          <Suggester
+            list={suggestions}
             onChange={onChangeName}
-            className="form-field"
+            onSubmit={onMenuSubmit}
+            className="applications-suggester"
           />
+
           <Button
             variant="contained"
             color="primary"
@@ -115,6 +132,7 @@ function Formulaire() {
           <Confirm
             open={confirm}
             onConfirm={onSubmit}
+            onSelect={onSubmit}
             onCancel={() => setConfirm(false)}
           />
           <Notification status={status} />

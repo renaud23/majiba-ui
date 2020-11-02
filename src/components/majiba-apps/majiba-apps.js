@@ -1,12 +1,12 @@
 import React, { useCallback, useState, useEffect } from "react";
 import { useRecoilState } from "recoil";
+import { ReactLargeTable } from "react-scrollable-div";
 import classnames from "classnames";
 import { majibaState } from "../../state";
 import Paper from "@material-ui/core/Paper";
-import { getMajibaApps } from "../../commons";
 import Button from "@material-ui/core/Button";
 import Waiting from "../waiting";
-import { ReactLargeTable } from "react-scrollable-div";
+import { getMajibaApps } from "../../commons";
 import "./simple-theme.scss";
 
 function ContentCell({ cell }) {
@@ -15,15 +15,16 @@ function ContentCell({ cell }) {
 }
 
 function prepare(apps) {
-  const rows = apps.map(function (e) {
+  const rows = apps.map(function (e, i) {
     const values = Object.entries(e).reduce(function (o, [key, value]) {
       return { ...o, [key]: { value, key } };
     }, {});
-    return { ...values, __height: 40 };
+    return { ...values, index: { value: i + 1 }, __height: 40 };
   });
 
   return {
     header: [
+      { label: "Index", path: "index", __width: 80, resizable: true },
       { label: "Nom", path: "name", __width: 250, resizable: true },
       { label: "Module", path: "module", __width: 100, resizable: true },
       { label: "Type", path: "kind", __width: 300, resizable: true },

@@ -45,7 +45,7 @@
           }
 
           .react-large-table-track {
-           &.vertical{ background-color: lightseagreen;}
+           &.vertical{ border-right: solid 1px lightseagreen;}
           }
         }
       }
@@ -93,4 +93,6 @@
   width: 60%;
   margin-left: auto;
   margin-right: auto;
+  overflow: hidden;
+  resize: both;
 }
