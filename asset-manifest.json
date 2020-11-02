@@ -1,20 +1,20 @@
 {
   "files": {
-    "main.css": "/majiba-ui/static/css/main.7cbc38a5.chunk.css",
-    "main.js": "/majiba-ui/static/js/main.7fd0756c.chunk.js",
-    "main.js.map": "/majiba-ui/static/js/main.7fd0756c.chunk.js.map",
+    "main.css": "/majiba-ui/static/css/main.6abecec5.chunk.css",
+    "main.js": "/majiba-ui/static/js/main.5fe86e8f.chunk.js",
+    "main.js.map": "/majiba-ui/static/js/main.5fe86e8f.chunk.js.map",
     "runtime-main.js": "/majiba-ui/static/js/runtime-main.68b278b2.js",
     "runtime-main.js.map": "/majiba-ui/static/js/runtime-main.68b278b2.js.map",
-    "static/js/2.7c5df249.chunk.js": "/majiba-ui/static/js/2.7c5df249.chunk.js",
-    "static/js/2.7c5df249.chunk.js.map": "/majiba-ui/static/js/2.7c5df249.chunk.js.map",
+    "static/js/2.b051e5d4.chunk.js": "/majiba-ui/static/js/2.b051e5d4.chunk.js",
+    "static/js/2.b051e5d4.chunk.js.map": "/majiba-ui/static/js/2.b051e5d4.chunk.js.map",
     "index.html": "/majiba-ui/index.html",
-    "static/css/main.7cbc38a5.chunk.css.map": "/majiba-ui/static/css/main.7cbc38a5.chunk.css.map",
-    "static/js/2.7c5df249.chunk.js.LICENSE.txt": "/majiba-ui/static/js/2.7c5df249.chunk.js.LICENSE.txt"
+    "static/css/main.6abecec5.chunk.css.map": "/majiba-ui/static/css/main.6abecec5.chunk.css.map",
+    "static/js/2.b051e5d4.chunk.js.LICENSE.txt": "/majiba-ui/static/js/2.b051e5d4.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.68b278b2.js",
-    "static/js/2.7c5df249.chunk.js",
-    "static/css/main.7cbc38a5.chunk.css",
-    "static/js/main.7fd0756c.chunk.js"
+    "static/js/2.b051e5d4.chunk.js",
+    "static/css/main.6abecec5.chunk.css",
+    "static/js/main.5fe86e8f.chunk.js"
   ]
 }
