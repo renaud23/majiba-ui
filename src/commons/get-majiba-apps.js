@@ -17,23 +17,58 @@ function appKind(tomcat, batch, js) {
   return "application/unknow";
 }
 
+// function buildAppList(rows = []) {
+//   return rows.reduce(function (apps, row, i) {
+//     if (i > 0) {
+//       const tmp = row.split(";");
+
+//       return [
+//         ...apps,
+//         {
+//           name: tmp[0],
+//           module: tmp[1],
+//           kind: appKind(tmp[2], tmp[3], tmp[4]),
+//           env: tmp[5],
+//           ad: tmp[6],
+//         },
+//       ];
+//     }
+//     return [];
+//   }, []);
+// }
+
 function buildAppList(rows = []) {
-  return rows.reduce(function (apps, row, i) {
+  const tmp = rows.reduce(function (apps, row, i) {
     if (i > 0) {
       const tmp = row.split(";");
-      return [
+      const name = tmp[0];
+      if (name in apps) {
+        console.log(apps[name]);
+        return {
+          ...apps,
+          [name]: {
+            name,
+            modules: [...apps[name].modules, tmp[1]],
+            kind: appKind(tmp[2], tmp[3], tmp[4]),
+            env: tmp[5],
+            ad: tmp[6],
+          },
+        };
+      }
+      return {
         ...apps,
-        {
-          name: tmp[0],
-          module: tmp[1],
+        [name]: {
+          name,
+          modules: tmp[1].length ? [tmp[1]] : [],
           kind: appKind(tmp[2], tmp[3], tmp[4]),
           env: tmp[5],
           ad: tmp[6],
         },
-      ];
+      };
     }
-    return [];
-  }, []);
+    return apps;
+  }, {});
+  return Object.values(tmp);
 }
 
 async function getMajibaApps() {

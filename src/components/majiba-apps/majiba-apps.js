@@ -1,16 +1,52 @@
-import React, { useCallback, useState, useEffect } from "react";
+import React, { useCallback, useState, useEffect, useRef } from "react";
 import { useRecoilState } from "recoil";
 import { ReactLargeTable } from "react-scrollable-div";
 import classnames from "classnames";
 import { majibaState } from "../../state";
 import Paper from "@material-ui/core/Paper";
 import Button from "@material-ui/core/Button";
+import Menu from "@material-ui/core/Menu";
+import MenuItem from "@material-ui/core/MenuItem";
+import IconButton from "@material-ui/core/IconButton";
+import Subject from "@material-ui/icons/Subject";
 import Waiting from "../waiting";
 import { getMajibaApps } from "../../commons";
 import "./simple-theme.scss";
 
+function Modules({ list, anchor }) {
+  const [display, setDisplay] = useState(false);
+
+  if (list.length) {
+    return !display ? (
+      <IconButton
+        size="small"
+        aria-label="delete"
+        color="primary"
+        onClick={() => setDisplay(!display)}
+      >
+        <Subject />
+      </IconButton>
+    ) : (
+      <Menu open={display} onClose={() => setDisplay(false)} anchorEl={anchor}>
+        {list.map(function (label) {
+          return <MenuItem key={label}>{label}</MenuItem>;
+        })}
+      </Menu>
+    );
+  }
+  return null;
+}
+
 function ContentCell({ cell }) {
+  const anchorEl = useRef(null);
   const { value, key } = cell;
+  if (key === "modules") {
+    return (
+      <span className={classnames("simple-theme-cell", key)} ref={anchorEl}>
+        <Modules list={value} anchor={anchorEl.current} />
+      </span>
+    );
+  }
   return <span className={classnames("simple-theme-cell", key)}>{value}</span>;
 }
 
@@ -26,7 +62,7 @@ function prepare(apps) {
     header: [
       { label: "Index", path: "index", __width: 80, resizable: true },
       { label: "Nom", path: "name", __width: 250, resizable: true },
-      { label: "Module", path: "module", __width: 100, resizable: true },
+      { label: "Modules", path: "modules", __width: 100, resizable: true },
       { label: "Type", path: "kind", __width: 300, resizable: true },
       { label: "Groupe AD", path: "ad", __width: 300, resizable: true },
     ],
